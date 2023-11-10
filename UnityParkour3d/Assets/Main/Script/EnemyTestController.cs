@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class EnemyTestController : MonoBehaviour
+namespace Main.Script
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyTestController : MonoBehaviour
     {
-        
-    }
+        public void PlayVictim( Vector3  attackerPosition )
+        {
+            anim.PlayVictim();
 
-    // Update is called once per frame
-    void Update()
-    {
+            var dir = attackerPosition - transform.position;
+
+            
+            transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+        }
         
+        
+        
+        [SerializeField] private AnimatorController anim;
+
+
+        private void Update()
+        {
+            transform.position += anim.AnimatorPositionChange;
+            anim.AnimatorPositionChange = Vector3.zero;
+        }
     }
 }
